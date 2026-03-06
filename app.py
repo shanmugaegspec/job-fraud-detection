@@ -28,7 +28,7 @@ model.eval()
 # ================= EASY OCR =================
 @st.cache_resource
 def load_ocr():
-    return easyocr.Reader(['en'])
+    return easyocr.Reader(['en'], gpu=False)
 
 reader = load_ocr()
 
@@ -108,3 +108,4 @@ if st.button("🔍 Predict"):
         if conf != 0:
 
             st.write(f"Confidence: {conf:.2f}")
+
