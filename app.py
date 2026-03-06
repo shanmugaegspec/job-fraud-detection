@@ -11,12 +11,12 @@ from transformers import RobertaTokenizer, RobertaForSequenceClassification
 from PIL import Image
 
 # ================= LOAD MODEL =================
-MODEL_PATH = "./roberta_fraud_model"
+MODEL_PATH = "roberta-base"
 
 @st.cache_resource
 def load_model():
     tokenizer = RobertaTokenizer.from_pretrained(MODEL_PATH)
-    model = RobertaForSequenceClassification.from_pretrained(MODEL_PATH)
+    model = RobertaForSequenceClassification.from_pretrained(MODEL_PATH, num_labels=2)
     return tokenizer, model
 
 tokenizer, model = load_model()
@@ -106,4 +106,5 @@ if st.button("🔍 Predict"):
         result, conf = predict_from_text(input_text)
         st.subheader(result)
         if conf != 0:
+
             st.write(f"Confidence: {conf:.2f}")
