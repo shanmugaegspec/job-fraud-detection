@@ -1,7 +1,7 @@
-streamlit
+streamlit==1.32.0
 torch
-torchvision
 transformers
 easyocr
 pillow
 numpy
+scikit-learn
