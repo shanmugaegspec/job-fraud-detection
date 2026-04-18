@@ -1,7 +1,0 @@
-streamlit==1.32.0
-torch
-transformers
-easyocr
-pillow
-numpy
-scikit-learn
