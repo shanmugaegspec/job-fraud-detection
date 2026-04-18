@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Job Fraud Detection</title>
+
+<style>
+
+/* 🌌 BACKGROUND IMAGE */
+body {
+    margin: 0;
+    font-family: Arial;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: url("{{ url_for('static', filename='bg.jpg.jpeg') }}") no-repeat center center/cover;
+}
+
+/* 🔥 DARK OVERLAY */
+body::before {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* 💎 GLASS CARD */
+.container {
+    width: 520px;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(15px);
+
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    color: white;
+}
+
+/* TITLE */
+h2 {
+    color: #00eaff;
+}
+
+/* INPUT */
+textarea {
+    width: 100%;
+    height: 120px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+/* BUTTON */
+button {
+    background: linear-gradient(45deg,#00c6ff,#0072ff);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+/* LOADER */
+.loader {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #00c6ff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: auto;
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+/* GRAPH */
+.bar-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.bar {
+    width: 100px;
+    border-radius: 10px;
+    color: white;
+}
+
+.fraud { background: red; }
+.real { background: limegreen; }
+
+</style>
+
+<script>
+function showLoader(){
+    document.getElementById("loader").style.display = "block";
+}
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🤖 AI Job Fraud Detection</h2>
+
+<form method="POST" enctype="multipart/form-data" onsubmit="showLoader()">
+
+<textarea name="job_text" placeholder="Paste Job Description"></textarea>
+<br><br>
+
+<input type="file" name="job_image">
+<br><br>
+
+<button type="submit">Analyze Job</button>
+
+</form>
+
+<br>
+
+<!-- LOADING -->
+<div id="loader" style="display:none;">
+<p>🔍 AI Scanning...</p>
+<div class="loader"></div>
+</div>
+
+{% if prediction %}
+<h3>{{ prediction }}</h3>
+
+<p>Fraud Score: {{ fraud_score }}%</p>
+<p>Real Score: {{ real_score }}%</p>
+
+<div class="bar-container">
+<div class="bar fraud" style="height:{{ fraud_score }}px"></div>
+<div class="bar real" style="height:{{ real_score }}px"></div>
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>
