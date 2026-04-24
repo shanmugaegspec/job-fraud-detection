@@ -1,0 +1,8 @@
+flask
+torch
+transformers
+easyocr
+numpy
+pillow
+gdown
+gunicorn
